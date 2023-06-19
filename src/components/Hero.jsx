@@ -1,13 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { logo } from "../assets";
+import sun from "../assets/sun.png";
+import moon from "../assets/moon.png";
 
 const Hero = () => {
+  const [sumzTheme, setSumzTheme] = useState(
+    JSON.parse(localStorage.getItem("sumzTheme")) || false
+  );
+
+  useEffect(() => {
+    if (sumzTheme) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+  const handleTheme = () => {
+    if (sumzTheme) {
+      localStorage.setItem("sumzTheme", JSON.stringify(false));
+    } else {
+      localStorage.setItem("sumzTheme", JSON.stringify(true));
+    }
+    document.documentElement.classList.toggle("dark");
+  };
   return (
-    <header className="w-full flex justify-center items-center flex-col">
+    <header className="w-full flex justify-center items-center flex-col ">
       <nav className="flex justify-between items-center w-full mb-10 pt-3">
         <img src={logo} alt="sumz_logo" className="w-28 object-contain" />
 
+        <button
+          onClick={() => {
+            setSumzTheme(!sumzTheme), handleTheme();
+          }}
+        >
+          {sumzTheme ? (
+            <img className=" h-10 w-10" src={moon} alt="light" />
+          ) : (
+            <img className=" h-10 w-10" src={sun} alt="light" />
+          )}
+        </button>
         <button
           type="button"
           onClick={() =>
@@ -26,7 +58,7 @@ const Hero = () => {
         Summarize Articles with <br className="max-md:hidden" />
         <span className="orange_gradient ">OpenAI GPT-4</span>
       </h1>
-      <h2 className="desc">
+      <h2 className="desc dark:text-white">
         Simplify your reading with Summize, an open-source article summarizer
         that transforms lengthy articles into clear and concise summaries
       </h2>
