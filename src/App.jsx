@@ -5,9 +5,9 @@ import "./App.css";
 
 const App = () => {
   return (
-    <main className="dark:bg-slate-800">
-      <div className="main dark:before:bg-none ">
-        <div className="gradient dark:w-full " />
+    <main>
+      <div className="main  ">
+        <div className="gradient " />
       </div>
 
       <div className="app ">
